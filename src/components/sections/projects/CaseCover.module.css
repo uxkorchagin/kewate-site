@@ -1,0 +1,48 @@
+.cover {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+}
+
+/* ---------- long screenshot in a browser window (296:309) ---------- */
+.light {
+  background: var(--c-card-2);
+}
+.window {
+  position: absolute;
+  left: 7.857%; /* 44 / 560 */
+  top: 13.25%; /* 53 / 400 */
+  width: 84.286%; /* 472 / 560 */
+  height: 73.75%; /* 295 / 400 */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: scale 500ms var(--ease-out), box-shadow 500ms var(--ease-out);
+}
+.shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  will-change: transform;
+}
+@media (hover: hover) {
+  article:hover .window {
+    scale: 1.05;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+  }
+}
+article[data-centered] .window {
+  scale: 1.05;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+}
+
+@media (max-width: 767px) {
+  .cover {
+    height: 220px;
+  }
+  .window {
+    border-radius: 8px;
+  }
+}

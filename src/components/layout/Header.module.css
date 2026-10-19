@@ -1,0 +1,191 @@
+.header {
+  --h-text: var(--c-ink-text);
+  --h-strong: #fff;
+  --h-line: rgba(255, 255, 255, 0.1);
+  --h-bg: rgba(9, 9, 11, 0.7);
+  position: fixed;
+  inset: 0 0 auto 0;
+  top: var(--banner-offset, 0px); /* service «Демо» banner sits above the header until it scrolls away */
+  z-index: 100;
+  height: var(--header-h);
+  color: var(--h-strong);
+  transition: transform 400ms var(--ease-io), color 300ms ease;
+}
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--h-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: opacity 300ms ease, background-color 300ms ease;
+}
+.header[data-scrolled="1"]::before,
+.header[data-mega="1"]::before {
+  opacity: 1;
+}
+.header[data-hidden="1"] {
+  transform: translateY(-100%);
+}
+
+.header[data-theme="light"]:not([data-mega="1"]) {
+  --h-text: var(--c-text-4);
+  --h-strong: var(--c-text);
+  --h-line: rgba(9, 9, 11, 0.08);
+  --h-bg: rgba(250, 250, 250, 0.7);
+}
+
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--h-line);
+  transition: background-color 300ms ease;
+}
+
+.logo {
+  position: relative;
+  display: block;
+  color: var(--h-strong);
+  transition: color 300ms ease;
+}
+.logo svg {
+  display: block;
+}
+
+.nav {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+.navItem {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--h-text);
+  transition: color 300ms ease, opacity 300ms ease;
+}
+.navItem:hover {
+  color: var(--h-strong);
+}
+.navItem[data-active="1"] {
+  color: var(--h-strong);
+}
+.navItem[data-active="0"] {
+  opacity: 0.6;
+}
+
+.trigger::before {
+  content: "";
+  position: absolute;
+  inset: -6px -10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transition: opacity 240ms var(--ease-io);
+}
+.trigger[data-open="1"]::before {
+  opacity: 1;
+}
+.chevron {
+  transition: transform 240ms var(--ease-io), color 240ms var(--ease-io);
+}
+.trigger[data-open="1"] .chevron {
+  transform: rotate(180deg);
+  color: var(--c-mint);
+}
+
+.header[data-theme="light"]:not([data-mega="1"]) .cta {
+  background: var(--c-ink);
+  color: #fff;
+}
+.header[data-theme="light"]:not([data-mega="1"]) .cta:hover {
+  color: var(--c-ink);
+}
+
+.burger {
+  display: none;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-btn);
+  background: rgba(255, 255, 255, 0.08);
+  transition: background-color 300ms ease;
+}
+.burger span {
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 1.5px;
+  background: var(--h-strong);
+  transition: background-color 300ms ease;
+}
+.burger span:first-child {
+  top: 15px;
+}
+.burger span:last-child {
+  top: 24px;
+}
+.header[data-theme="light"] .burger {
+  background: rgba(9, 9, 11, 0.06);
+}
+
+@media (max-width: 1100px) {
+  .navList {
+    gap: 24px;
+  }
+}
+
+/* tablet: the five nav items don't fit next to the logo and CTA — they move into the burger menu */
+@media (max-width: 1023px) {
+  .nav {
+    display: none;
+  }
+  .burger {
+    display: block;
+    margin-left: 12px;
+  }
+  .cta {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .nav,
+  .cta {
+    display: none !important;
+  }
+  .burger {
+    display: block;
+  }
+  .logo svg {
+    width: 115px;
+    height: auto;
+  }
+}

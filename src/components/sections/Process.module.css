@@ -1,0 +1,412 @@
+.process {
+  position: relative;
+  background: var(--c-ink);
+  color: #fff;
+}
+.inner {
+  position: relative;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 140px var(--gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.title {
+  font-size: 52px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.lead {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--c-text-2);
+}
+.lead span {
+  display: block;
+}
+
+/* ---------- methods ---------- */
+.methods {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+.method {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 24px 24px 28px;
+  border-radius: var(--r-card);
+  border: 1px solid var(--c-ink-line);
+  background: var(--c-ink-card);
+  overflow: hidden;
+}
+.light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.08), transparent 70%);
+}
+.method[data-lit] .light {
+  opacity: 1;
+}
+.digit {
+  position: relative;
+  display: block;
+  height: 48px;
+  transition: transform 400ms var(--ease-out);
+}
+.method:hover .digit {
+  transform: translateY(-6px);
+}
+.digit svg {
+  overflow: visible;
+  filter: drop-shadow(0 4px 32px rgba(106, 238, 199, 0.64));
+}
+.digitText {
+  font-family: var(--f-sans);
+  font-weight: 300;
+  font-size: 48px;
+  letter-spacing: -0.04em;
+  fill: var(--c-mint);
+  stroke: var(--c-mint);
+  stroke-width: 0.6;
+}
+.methodText {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.methodTitle {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+.methodDesc {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--c-text-2);
+}
+
+/* ---------- responsibility ---------- */
+.sub {
+  width: 100%;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.resp {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+.respCard {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+  border-radius: var(--r-card);
+}
+.dark {
+  border: 1px solid var(--c-ink-line);
+  background: var(--c-ink-card);
+}
+.light2 {
+  --c-text-2: #71717a; /* white card inside the dark section keeps the light-surface grey */
+  align-items: stretch;
+  background: #fff;
+}
+.light2 .respText {
+  align-self: center;
+}
+.respText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.respTitle {
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+.ink {
+  color: var(--c-ink);
+}
+.respDesc {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--c-text-2);
+}
+
+.canvas {
+  position: relative;
+  flex: none;
+  width: 180px;
+  height: 116px;
+  border-radius: var(--r-btn);
+  border: 1px solid var(--c-ink-line);
+  background: var(--c-ink-card-2);
+  overflow: hidden;
+}
+.cr {
+  position: absolute;
+  background: var(--c-ink-line);
+}
+.block {
+  transition: box-shadow 200ms ease;
+}
+.block[data-sel] {
+  box-shadow: inset 0 0 0 1px var(--c-mint);
+}
+.cursor {
+  position: absolute;
+  will-change: transform;
+}
+.cursor svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: none; /* the cursor box is 0×0 — don't let the global svg rule collapse it */
+}
+.tag {
+  position: absolute;
+  left: 12px;
+  top: 18px;
+  padding: 2px 6px;
+  border-radius: 0 4px 4px 4px;
+  background: var(--c-mint);
+  color: var(--c-ink);
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.tagYou {
+  background: #fff;
+}
+
+.clock {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: var(--c-ink);
+  color: #fff;
+}
+.time {
+  display: flex;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 1.5;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.colon {
+  animation: colon 1s steps(1) infinite;
+}
+@keyframes colon {
+  50% {
+    opacity: 0.2;
+  }
+}
+.minutes {
+  display: inline-block;
+  overflow: hidden;
+}
+.minuteRoll {
+  display: inline-block;
+  animation: roll 400ms var(--ease-out);
+}
+@keyframes roll {
+  from {
+    transform: translateY(100%);
+  }
+}
+.status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+.dot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+.dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  animation: ping 2s ease-out infinite;
+}
+@keyframes ping {
+  from {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+.clock[data-night] .dot {
+  background: var(--c-night);
+  color: var(--c-night);
+}
+
+/* ---------- tablet ---------- */
+@media (max-width: 1100px) and (min-width: 768px) {
+  .methods,
+  .resp {
+    flex-direction: column;
+  }
+}
+
+/* ---------- mobile (196:350) ---------- */
+@media (max-width: 767px) {
+  .inner {
+    align-items: stretch;
+    gap: 20px;
+    padding: 56px 16px 72px;
+  }
+  .head {
+    align-items: flex-start;
+    text-align: left;
+    gap: 20px;
+  }
+  .title {
+    font-size: 30px;
+  }
+  .lead {
+    font-size: 12px;
+  }
+  .lead span {
+    display: inline;
+  }
+  .methods {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .method {
+    flex-direction: row;
+    gap: 16px;
+    padding: 16px 16px 18px;
+    border-radius: var(--r-card-sm);
+  }
+  .digit {
+    flex: none;
+    width: 22px;
+    height: 36px;
+  }
+  .digit svg {
+    width: 30px;
+    height: 36px;
+    filter: none;
+  }
+  .digitText {
+    font-family: var(--f-mono);
+    font-size: 48px;
+  }
+  .methodText {
+    gap: 6px;
+  }
+  .methodTitle {
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .methodDesc {
+    font-size: 11px;
+    line-height: 1.55;
+  }
+  .sub {
+    font-size: 24px;
+  }
+  .resp {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .respCard {
+    gap: 16px;
+    padding: 16px;
+    border-radius: var(--r-card-sm);
+  }
+  .dark {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 14px;
+    padding: 16px 16px 18px;
+  }
+  .dark .respText {
+    gap: 14px;
+  }
+  .canvas {
+    width: 100%;
+  }
+  .respTitle {
+    font-size: 20px;
+    letter-spacing: -0.015em;
+  }
+  .respDesc {
+    font-size: 11px;
+    line-height: 1.55;
+  }
+  .light2 .respText {
+    gap: 6px;
+  }
+  .clock {
+    gap: 2px;
+    padding: 10px 12px;
+    border-radius: 14px;
+  }
+  .time {
+    font-family: var(--f-mono);
+    font-size: 28px;
+    line-height: 1.55;
+  }
+  .status {
+    gap: 4px;
+    font-size: 9px;
+    line-height: 1.55;
+    color: var(--c-text-3);
+  }
+  .dot {
+    width: 5px;
+    height: 5px;
+  }
+}

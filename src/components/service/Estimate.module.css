@@ -1,0 +1,450 @@
+.estimate {
+  position: relative;
+  color: var(--c-text);
+}
+.bg {
+  position: absolute;
+  inset: 0;
+  background: var(--c-page);
+}
+.inner {
+  position: relative;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 120px var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+.title {
+  font-size: 52px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.lead {
+  flex: none;
+  width: 420px;
+  font-family: var(--f-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--c-text-2);
+}
+.body {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+}
+
+/* ---------- receipt ---------- */
+.receipt {
+  flex: 1;
+  min-width: 0;
+  min-height: 643px;
+  display: flex;
+  flex-direction: column;
+  padding: 36px 24px 24px;
+  border-radius: var(--r-card);
+  border: 1px solid var(--c-line);
+  background: #fff;
+  box-shadow: 0 16px 20px rgba(0, 0, 0, 0.06);
+}
+.receiptHead {
+  padding: 0 16px 20px;
+  border-bottom: 1px dashed var(--c-line-2);
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+.lines {
+  flex: 1;
+  padding-bottom: 24px;
+}
+.line {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 48px;
+  padding: 0 16px;
+  overflow: hidden;
+}
+.check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--c-mint);
+  color: var(--c-ink);
+}
+.lineText {
+  flex: 1;
+  min-width: 0;
+  font-size: 18px;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+.lineNote {
+  flex: none;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--c-text-2);
+}
+.added .lineNote {
+  color: var(--c-mint-text);
+}
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: var(--c-card-2);
+  white-space: nowrap;
+}
+.totalLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.totalLabel {
+  font-size: 18px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.totalNote {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #686871; /* AA on #f4f4f5 */
+}
+.totalValue {
+  font-family: var(--f-mono);
+  font-weight: 300;
+  font-size: 32px;
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- add-ons ---------- */
+.side {
+  flex: none;
+  width: 456px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sideHead {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 0 6px 4px;
+}
+.sideTitle {
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.sideLead {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--c-text-2);
+}
+.addon {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px 10px 10px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--c-line); /* inside stroke, as in Figma */
+  cursor: pointer;
+  transition: transform 200ms var(--ease-out), box-shadow 200ms ease;
+}
+.addon[data-on] {
+  box-shadow: inset 0 0 0 1.5px var(--c-mint);
+}
+@media (hover: hover) {
+  .addon:hover {
+    transform: translateY(-2px);
+  }
+  .addon:hover .thumb > * {
+    scale: 1.06;
+  }
+}
+.thumb {
+  position: relative;
+  flex: none;
+  width: 104px;
+  height: 80px;
+  border-radius: 14px;
+  background: var(--c-card-2);
+  overflow: hidden;
+  --ill-scale: 0.3137;
+}
+.thumb > * {
+  transition: scale 300ms var(--ease-out);
+}
+.addonText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.addonTitle {
+  font-size: 18px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.addonDesc {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--c-text-2);
+}
+.prices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 10px;
+  white-space: nowrap;
+}
+.pkg {
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 12px;
+}
+.addon[data-on] .pkg {
+  color: var(--c-mint-text);
+}
+.sep {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--c-text-2); /* #a1a1aa in the design is 2.6:1 on white — AA needs #71717a */
+}
+.toggle {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--c-card-2);
+  transition: background-color 200ms ease;
+}
+.addon[data-on] .toggle {
+  background: var(--c-mint);
+}
+/* plus morphs into a check (200 ms) */
+.plus::before,
+.plus::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 1.6px;
+  border-radius: 1px;
+  background: var(--c-ink);
+  transition: width 200ms var(--ease-out), transform 200ms var(--ease-out);
+}
+.plus::before {
+  width: 14px;
+  transform: translate(-50%, -50%);
+}
+.plus::after {
+  width: 14px;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.addon[data-on] .plus::before {
+  width: 6px;
+  transform: translate(-80%, 40%) rotate(45deg);
+}
+.addon[data-on] .plus::after {
+  width: 12px;
+  transform: translate(-25%, -10%) rotate(-50deg);
+}
+
+.extra {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 28px;
+  border-radius: var(--r-card);
+  background: var(--c-ink);
+  color: #fff;
+  overflow: hidden;
+}
+.extraArt {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(50% 60% at 80% 100%, rgba(106, 238, 199, 0.22), rgba(106, 238, 199, 0)),
+    repeating-linear-gradient(to right, transparent 0 56px, rgba(255, 255, 255, 0.05) 56px 57px);
+  pointer-events: none;
+}
+.extraEyebrow {
+  position: relative;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-text-3);
+}
+.extraText {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.extraTitle {
+  font-size: 26px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.extraDesc {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--c-text-3);
+}
+.extraBtn {
+  position: relative;
+  margin-top: auto;
+  padding: 14px 14px 14px 18px !important;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- tablet ---------- */
+@media (max-width: 1100px) and (min-width: 768px) {
+  .body {
+    flex-direction: column;
+  }
+  .side {
+    width: auto;
+  }
+  .title {
+    font-size: 44px;
+  }
+  .lead {
+    width: 320px;
+  }
+}
+
+/* ---------- mobile (282:403) ---------- */
+@media (max-width: 767px) {
+  .inner {
+    padding: 56px 16px;
+    gap: 24px;
+  }
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .title {
+    font-size: 32px;
+    line-height: 1.15;
+  }
+  .lead {
+    width: auto;
+    font-size: 11px;
+  }
+  .body {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .receipt {
+    min-height: 0;
+    padding: 28px 16px 16px;
+    border-radius: var(--r-card-sm);
+  }
+  .receiptHead {
+    padding: 0 0 16px;
+    font-size: 11px;
+  }
+  .lines {
+    padding: 8px 0 16px;
+  }
+  .line {
+    min-height: 48px;
+    gap: 12px;
+    padding: 0;
+  }
+  .lineText {
+    font-size: 15px;
+  }
+  .lineNote {
+    display: none;
+  }
+  .added .lineNote {
+    display: inline;
+    font-size: 10px;
+  }
+  .total {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+  .totalValue {
+    font-size: 30px;
+    line-height: 1.2;
+  }
+  .side {
+    width: auto;
+    gap: 16px;
+  }
+  .sideHead {
+    padding: 0;
+  }
+  .sideTitle {
+    font-size: 20px;
+  }
+  .sideLead {
+    font-size: 11px;
+  }
+  .thumb {
+    display: none;
+  }
+  .addon {
+    padding: 14px 16px;
+  }
+  .addonTitle {
+    font-size: 17px;
+  }
+  .pkg {
+    font-size: 11px;
+  }
+  .sep {
+    font-size: 10px;
+  }
+  .extra {
+    padding: 20px;
+    border-radius: var(--r-card-sm);
+  }
+  .extraTitle {
+    font-size: 26px;
+  }
+  .extraDesc {
+    font-size: 11px;
+  }
+}

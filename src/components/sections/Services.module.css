@@ -1,0 +1,408 @@
+.services {
+  position: relative;
+  color: var(--c-text);
+}
+.bg {
+  position: absolute;
+  inset: 0;
+  background: var(--c-page);
+}
+.shade {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+}
+.inner {
+  position: relative;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 140px var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+/* ---------- head ---------- */
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+.headLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.title {
+  font-size: 52px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--c-text);
+}
+.title > span {
+  display: block;
+}
+.second {
+  color: var(--c-grey-display);
+}
+.lead {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--c-text-2);
+  white-space: nowrap;
+}
+
+/* ---------- body ---------- */
+.body {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+.side {
+  position: sticky;
+  top: 96px;
+  flex: none;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.cats {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px;
+  border-radius: var(--r-btn);
+  border: 1px solid var(--c-line);
+  background: #fff;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: nowrap;
+  transition: border-color 150ms ease;
+}
+.cat[aria-pressed="true"] {
+  border-color: var(--c-ink);
+  background: var(--c-ink);
+}
+.cat:not([aria-pressed="true"]):hover {
+  border-color: var(--c-line-2);
+}
+.catLabel,
+.catCount {
+  position: relative;
+  z-index: 2;
+}
+.catLabel {
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--c-text);
+}
+.catCount {
+  color: var(--c-text-2);
+}
+.cat[aria-pressed="true"] .catLabel {
+  color: #fff;
+}
+.cat[aria-pressed="true"] .catCount {
+  color: var(--c-text-3);
+}
+
+/* promo «Не нашли нужное?» */
+.promo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: var(--r-card);
+  background: var(--c-mint);
+  color: var(--c-ink);
+  overflow: hidden;
+}
+.promoText {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.promoTitle {
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+.promoDesc {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.promoBtn {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+/* ---------- grid ---------- */
+.grid {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 16px 20px;
+  border-radius: var(--r-card);
+  border: 1px solid var(--c-line);
+  background: #fff;
+  transition: transform 300ms var(--ease-out), box-shadow 300ms ease, border-color 300ms ease;
+}
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--c-line-2);
+    box-shadow: 0 18px 40px rgba(9, 9, 11, 0.08);
+  }
+}
+.ill {
+  position: relative;
+  height: 200px;
+  border-radius: 20px;
+  background: var(--c-card-2);
+  overflow: hidden;
+}
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cardTitle {
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+.desc {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--c-text-2);
+}
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--c-line);
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+.priceArrow {
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.card:hover .priceArrow,
+.card:focus-visible .priceArrow {
+  opacity: 1;
+}
+
+/* CTA tile «Нужно несколько направлений сразу?» */
+.cta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px;
+  border-radius: var(--r-card);
+  background: var(--c-ink);
+  color: #fff;
+  overflow: hidden;
+}
+.grain {
+  position: absolute;
+  inset: -50%;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.ctaGlow {
+  position: absolute;
+  left: 50%;
+  bottom: -160px;
+  width: 420px;
+  height: 260px;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(106, 238, 199, 0.28), rgba(106, 238, 199, 0));
+  pointer-events: none;
+}
+.ctaText {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ctaTitle {
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+.ctaDesc {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--c-text-3);
+}
+.ctaBtn {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+}
+
+/* ---------- tablet ---------- */
+@media (max-width: 1240px) and (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .side {
+    width: 240px;
+  }
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .lead {
+    white-space: normal;
+  }
+}
+
+/* ---------- mobile (195:375) ---------- */
+@media (max-width: 767px) {
+  .inner {
+    padding: 72px 16px;
+    gap: 24px;
+  }
+  .head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .headLeft {
+    gap: 16px;
+  }
+  .title {
+    font-size: 32px;
+  }
+  .title > span {
+    display: inline;
+  }
+  .lead {
+    font-size: 12px;
+    line-height: 1.55;
+    white-space: normal;
+  }
+  .body {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+  .side {
+    position: static;
+    width: auto;
+    margin: 0 -16px;
+  }
+  .cats {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0 16px;
+    scrollbar-width: none;
+  }
+  .cats::-webkit-scrollbar {
+    display: none;
+  }
+  .cat {
+    flex: none;
+    padding: 9px 12px;
+    border-radius: var(--r-chip);
+    font-size: 10px;
+    line-height: 1.55;
+  }
+  .cat[aria-pressed="true"] {
+    border-color: transparent;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .card {
+    gap: 14px;
+    padding: 12px 12px 16px;
+    border-radius: var(--r-card-sm);
+  }
+  .ill {
+    height: 150px;
+    --ill-scale: 0.78;
+  }
+  .text {
+    gap: 4px;
+    padding: 0 4px;
+  }
+  .cardTitle {
+    font-size: 20px;
+  }
+  .desc {
+    font-size: 11px;
+  }
+  .price {
+    padding: 12px 4px 0;
+    font-size: 11px;
+    line-height: 1.55;
+  }
+  .priceArrow {
+    opacity: 1;
+  }
+  .cta {
+    gap: 16px;
+    padding: 20px;
+    border-radius: var(--r-card-sm);
+  }
+  .ctaText {
+    gap: 16px;
+  }
+  .ctaTitle {
+    font-size: 22px;
+  }
+  .ctaDesc {
+    font-size: 11px;
+  }
+  .promo {
+    gap: 12px;
+    border-radius: var(--r-card-sm);
+  }
+  .promoText {
+    gap: 12px;
+  }
+  .promoDesc {
+    font-size: 11px;
+  }
+  .promoBtn,
+  .ctaBtn {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    font-size: 11px !important;
+  }
+}

@@ -1,0 +1,42 @@
+/* 306×200 authoring stage, centred in its host and scaled with --ill-scale */
+.stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 306px;
+  height: 200px;
+  transform: translate(-50%, -50%) scale(var(--ill-scale, 1));
+  transform-origin: 50% 50%;
+  pointer-events: none;
+}
+
+.layer {
+  position: absolute;
+  display: block;
+  transform: translate3d(var(--px, 0px), var(--py, 0px), 0) rotate(var(--rot, 0deg));
+  will-change: transform;
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e4e4e7;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.sub {
+  position: absolute;
+  display: block;
+  transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e4e4e7;
+  border-radius: 2px;
+}
+
+.r {
+  position: absolute;
+  display: block;
+}

@@ -1,0 +1,417 @@
+/* One screen tall: the client marquee sits on the bottom edge (32px, as in the 940px frame),
+   the headline block is centred between the header and the marquee. */
+.hero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: max(640px, 100vh);
+  height: max(640px, 100svh);
+  padding-top: var(--header-h);
+  overflow: hidden;
+  background: var(--c-ink);
+  color: #fff;
+}
+
+/* ---------- background: mint glow + 1px column grid ---------- */
+.glow {
+  position: absolute;
+  left: calc(50% - 700px);
+  bottom: -220px; /* top 640 in the 940px frame */
+  width: 1400px;
+  height: 520px;
+  pointer-events: none;
+}
+.follow {
+  position: absolute;
+  inset: 0;
+}
+.follow > span {
+  position: absolute;
+  inset: 0;
+  opacity: 0.85;
+  background: radial-gradient(closest-side, rgba(106, 238, 199, 0.42), rgba(106, 238, 199, 0));
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  pointer-events: none;
+}
+.lit {
+  position: absolute;
+  bottom: 0;
+  height: 420px;
+  background: linear-gradient(to bottom, rgba(106, 238, 199, 0), rgba(106, 238, 199, 0.35));
+}
+.col {
+  position: relative;
+  opacity: 0;
+}
+.colLight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 420px;
+  background: linear-gradient(to bottom, rgba(106, 238, 199, 0), rgba(106, 238, 199, 0.35));
+}
+.lit {
+  transition: transform 1.2s var(--ease-io);
+  left: calc(7 * 100% / 12); /* design slot: x 840 of 1440 */
+  width: calc(100% / 12);
+}
+.line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--i) * 100% / 12);
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.12));
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- content ---------- */
+.content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px; /* lands the H1 on y 274 in the 940px frame */
+  gap: 28px;
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+
+.h1 {
+  font-size: clamp(56px, 6.111vw, 88px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+  color: #fff;
+}
+.char {
+  display: inline-block;
+}
+.h1Line {
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+/* forced line break that SplitText respects on desktop only (a <br> would also split on mobile) */
+.br {
+  display: block;
+}
+
+.sub {
+  font-family: var(--f-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--c-text-2);
+}
+.sub > span {
+  display: block;
+}
+
+.ctas {
+  display: flex;
+  gap: 12px;
+}
+
+/* ---------- trusted by marquee ---------- */
+.trusted {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  margin-bottom: 32px;
+}
+.trustedLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 0 16px 32px;
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: #a9a9a9;
+}
+.trustedLabel::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-mint);
+}
+
+.viewport {
+  position: relative;
+  height: 72px;
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+}
+.track {
+  --start: 130px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  gap: 8px;
+  transform: translate3d(calc(var(--start) * -1), 0, 0);
+  will-change: transform;
+}
+.cell {
+  flex: none;
+  display: flex;
+  justify-content: center;
+  width: 260px;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  transition: opacity 300ms ease, border-color 240ms ease;
+}
+@media (hover: hover) {
+  .viewport:hover .cell {
+    opacity: 0.45 !important;
+  }
+  .viewport:hover .cell:hover {
+    opacity: 1 !important;
+    border-color: var(--c-mint);
+  }
+}
+.viewport[data-dragging] {
+  cursor: grabbing;
+}
+
+.fade {
+  position: absolute;
+  top: 0;
+  width: 200px;
+  height: 72px;
+  pointer-events: none;
+}
+.fadeL {
+  left: 0;
+  background: linear-gradient(to right, #030303, rgba(3, 3, 3, 0));
+}
+.fadeR {
+  right: 0;
+  background: linear-gradient(to left, #030303, rgba(3, 3, 3, 0));
+}
+
+/* ---------- tablet ---------- */
+@media (max-width: 1100px) and (min-width: 768px) {
+  .br {
+    display: none;
+  }
+  .h1 {
+    max-width: 900px;
+  }
+}
+
+/* ---------- mobile (194:310) ---------- */
+@media (max-width: 767px) {
+  .hero {
+    height: clamp(600px, calc(100vh - 52px), 760px);
+    height: clamp(600px, calc(100svh - 52px), 760px);
+    padding-top: 0;
+  }
+  .glow {
+    left: -120px;
+    bottom: -160px; /* top 500 in the 760px frame */
+    width: 620px;
+    height: 420px;
+  }
+  .follow > span {
+    background: radial-gradient(closest-side, rgba(106, 238, 199, 0.4), rgba(106, 238, 199, 0));
+  }
+  .grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .col:not([data-mcol]),
+  .line:not([data-mline]) {
+    display: none;
+  }
+  .line {
+    left: calc(var(--i) * 20%);
+  }
+  .colLight {
+    height: 300px;
+  }
+  .lit {
+    left: 60%; /* design slot: x 225 of 375 */
+    width: 20%;
+    height: 300px;
+    background: linear-gradient(to bottom, rgba(106, 238, 199, 0), rgba(106, 238, 199, 0.32));
+  }
+
+  .content {
+    flex: none;
+    justify-content: flex-start;
+    padding-top: 120px;
+    align-items: stretch;
+    gap: 20px;
+    text-align: left;
+  }
+  .br {
+    display: none;
+  }
+  .h1 {
+    font-size: 42px;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+  }
+  .sub {
+    font-size: 13px;
+    color: var(--c-text-3);
+  }
+  .sub > span {
+    display: inline;
+  }
+  .ctas {
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 8px;
+  }
+  .btn {
+    width: 100%;
+  }
+  .btn :global(.swap-arrow) {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .trusted {
+    margin-top: auto;
+    margin-bottom: 24px; /* label on y 647 in the 760px frame */
+  }
+  .trustedLabel {
+    justify-content: flex-start;
+    padding: 0 0 12px 16px;
+    font-size: 11px;
+    line-height: 1.55;
+    color: var(--c-text-3);
+  }
+  .viewport {
+    height: 60px;
+  }
+  .track {
+    --start: 40px;
+  }
+  .cell {
+    width: auto;
+    padding: 18px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 16px;
+    letter-spacing: -0.02em;
+  }
+  .fade {
+    display: none;
+  }
+}
+
+/* ---------- service page hero (205:311 / 281:316) ---------- */
+.service .content {
+  gap: 32px;
+  padding-bottom: 58px; /* content block sits 29px above centre in the 940px frame (top 220) */
+}
+.h1Service {
+  max-width: 1240px;
+  color: var(--c-text-2);
+}
+.accent {
+  color: #fff;
+}
+.specs {
+  display: flex;
+  border-radius: 16px;
+  border: 1px solid var(--c-ink-line);
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+.spec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 200px;
+  padding: 16px 28px 18px;
+  white-space: nowrap;
+}
+.spec + .spec {
+  border-left: 1px solid var(--c-ink-line);
+}
+.specLabel {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-text-2);
+}
+.specValue {
+  font-size: 22px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.service .ctas {
+  gap: 10px;
+}
+
+@media (max-width: 767px) {
+  /* the 760px frame minus the 96px «Демо» banner / 72px header gap (281:316 is 688 tall) */
+  .service {
+    height: clamp(600px, calc(100vh - 124px), 688px);
+    height: clamp(600px, calc(100svh - 124px), 688px);
+  }
+  .service .content {
+    padding-top: 100px;
+    padding-bottom: 0;
+    gap: 16px;
+  }
+  .specs {
+    flex-direction: column;
+    border-radius: 14px;
+  }
+  .spec {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 0;
+    padding: 12px 16px;
+  }
+  .spec + .spec {
+    border-left: 0;
+    border-top: 1px solid var(--c-ink-line);
+  }
+  .specValue {
+    font-size: 16px;
+    letter-spacing: -0.01em;
+  }
+  .service .ctas {
+    gap: 8px;
+    padding-top: 12px;
+  }
+}

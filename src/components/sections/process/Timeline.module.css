@@ -1,0 +1,234 @@
+/* ---------- timeline (desktop table) ---------- */
+.timelineWrap {
+  width: 100%;
+}
+.table {
+  position: relative;
+  border-radius: var(--r-card);
+  border: 1px solid var(--c-ink-line);
+  background: var(--c-ink-card);
+  --stage: 220px;
+}
+.thead,
+.row {
+  display: flex;
+}
+.stageCol {
+  flex: none;
+  width: var(--stage);
+  padding-left: 20px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--c-text-3);
+}
+.thead .stageCol {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--c-text-2);
+}
+.days {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(var(--n), 1fr);
+}
+.day {
+  padding: 14px 0;
+  border-left: 1px solid var(--c-ink-line);
+  text-align: center;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--c-text-2);
+  transition: color 200ms ease, background-color 200ms ease;
+}
+.day[data-today] {
+  color: var(--c-mint);
+}
+.day[data-hl] {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.04);
+}
+.row {
+  align-items: center;
+  border-top: 1px solid var(--c-ink-line);
+}
+.row:focus-visible {
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+.row .stageCol {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.row[data-final] .stageCol {
+  color: var(--c-mint);
+}
+.track {
+  position: relative;
+  flex: 1;
+  height: 42px;
+}
+.bar {
+  position: absolute;
+  top: 12px;
+  height: 18px;
+  border-radius: 6px;
+  background: #fff;
+  outline-offset: 2px;
+  transition: opacity 250ms ease, background-color 300ms ease, box-shadow 250ms ease;
+}
+.bar[data-final] {
+  background: var(--c-mint);
+}
+.table[data-hover] .bar:not([data-active]) {
+  opacity: 0.4;
+}
+.bar[data-active] {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.16);
+  z-index: 3;
+}
+.table[data-scrubbed] .bar:not([data-passed]):not([data-final]) {
+  background: #52525b;
+}
+.tip {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 10px);
+  z-index: 4;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--c-ink);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: tip 200ms var(--ease-out);
+}
+.tip b {
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-right: 6px;
+}
+@keyframes tip {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+.overlay,
+.headLayer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--stage);
+  right: 0;
+  pointer-events: none;
+}
+.colHl {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.03);
+}
+.playhead {
+  /* 17px wide grab/focus area, the visible line is the 1px ::after */
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  width: 17px;
+  margin-left: -8px;
+  pointer-events: auto;
+  cursor: ew-resize;
+  touch-action: none;
+}
+.playhead::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 8px;
+  width: 1px;
+  background: var(--c-mint);
+}
+.timelineWrap[data-live] .playhead::after {
+  animation: head-pulse 1.6s ease-in-out infinite alternate;
+}
+@keyframes head-pulse {
+  to {
+    opacity: 0.6;
+  }
+}
+.playhead:focus-visible {
+  outline: 2px solid var(--c-mint);
+  outline-offset: 2px;
+}
+
+/* ---------- timeline (mobile list) ---------- */
+.list {
+  padding: 8px 0;
+  border-radius: var(--r-card-sm);
+  border: 1px solid var(--c-ink-line);
+  background: var(--c-ink-card);
+}
+.listHead {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  line-height: 1.55;
+  text-transform: uppercase;
+  color: var(--c-text-2);
+}
+.listRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--c-ink-line);
+}
+.listMeta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--c-text-3);
+}
+.listDays {
+  font-size: 10px;
+  color: var(--c-text-2);
+}
+.mint {
+  color: var(--c-mint);
+}
+.listTrack {
+  position: relative;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--c-ink-line);
+  overflow: hidden;
+}
+.listBar {
+  position: absolute;
+  top: 0;
+  height: 6px;
+  border-radius: 3px;
+  background: #fff;
+}
+.listBar[data-final] {
+  background: var(--c-mint);
+}
+
+
+/* ---------- tablet ---------- */
+@media (max-width: 1100px) and (min-width: 768px) {
+  .table {
+    --stage: 170px;
+  }
+}

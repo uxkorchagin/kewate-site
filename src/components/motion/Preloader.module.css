@@ -1,0 +1,46 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  place-items: center;
+  background: var(--c-ink);
+  color: #fff;
+  clip-path: inset(0% 0% 0% 0%);
+}
+
+/* only when JS is running; a failsafe hides it even if the bundle never boots */
+:global(html.js) .preloader {
+  display: grid;
+  animation: preloader-failsafe 0.4s ease 6s forwards;
+}
+@keyframes preloader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* returning visitors never see it, even before hydration */
+:global(html.visited) .preloader,
+:global(html.no-preload) .preloader {
+  display: none;
+}
+
+.count {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 24px;
+  font-family: var(--f-mono);
+  font-weight: 200;
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 767px) {
+  .count {
+    font-size: 44px;
+  }
+}

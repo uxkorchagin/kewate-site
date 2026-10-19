@@ -1,0 +1,324 @@
+.about {
+  position: relative;
+  color: var(--c-text);
+  --tail: var(--c-mint-deep);
+}
+.bg {
+  position: absolute;
+  inset: 0;
+  background: var(--c-page);
+}
+.shade {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+}
+.inner {
+  position: relative;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 140px var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* ---------- statement ---------- */
+.head {
+  display: flex;
+  align-items: flex-start;
+}
+.labelCol {
+  display: flex;
+  flex: none;
+  width: 420px;
+}
+.statement {
+  flex: 1;
+  min-width: 0;
+  font-size: 52px;
+  line-height: 64px; /* 60px rows + 6px gaps of the frame (181:858 = 192px) */
+  letter-spacing: -0.02em;
+  color: var(--c-text);
+}
+.tail {
+  color: var(--tail);
+}
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-left: 1px;
+  border-radius: 240px;
+  vertical-align: middle;
+  transform-origin: 50% 50%;
+}
+.iconMint {
+  background: var(--c-mint);
+  color: var(--c-ink);
+}
+.iconInk {
+  background: var(--c-ink);
+  color: #fff;
+  perspective: 300px;
+}
+.iconArrow {
+  display: inline-flex;
+  transition: transform 400ms var(--ease-out);
+}
+.iconMint:hover .iconArrow {
+  transform: rotate(45deg);
+  animation: shoot 500ms var(--ease-out) 150ms;
+}
+@keyframes shoot {
+  50% {
+    translate: 5px -5px;
+  }
+}
+.coin {
+  display: inline-flex;
+  transition: transform 700ms var(--ease-out);
+}
+.iconInk:hover .coin {
+  transform: rotateY(360deg);
+}
+
+/* ---------- cards ---------- */
+.cards {
+  display: flex;
+  gap: 16px;
+  perspective: 1200px;
+}
+.cardWrap,
+.card {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 400px;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  border-radius: var(--r-card);
+  border: 1px solid var(--c-line);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: background-color 300ms ease;
+}
+.white {
+  background: #fff;
+}
+.mint {
+  background: var(--c-mint);
+  color: var(--c-ink);
+}
+.mint:hover {
+  background: #80f1cf;
+}
+
+.light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(0, 0, 0, 0.04), transparent 70%);
+}
+.card[data-lit] .light {
+  opacity: 1;
+}
+
+.stat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.caption {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--c-text-2);
+}
+.mint .caption,
+.mint .note {
+  color: var(--c-ink);
+}
+.big {
+  font-weight: 300;
+  font-size: 84px;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  white-space: nowrap;
+}
+.huge {
+  font-size: 120px;
+  letter-spacing: -0.08em;
+}
+.mid {
+  font-size: 62px;
+}
+.tabular,
+.count {
+  font-variant-numeric: tabular-nums;
+}
+.count {
+  display: inline-grid;
+  justify-items: end;
+}
+.count::before {
+  content: attr(data-final);
+  visibility: hidden;
+  grid-area: 1 / 1;
+}
+.count > span {
+  grid-area: 1 / 1;
+}
+.plus {
+  display: inline-block;
+}
+.note {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--c-text-2);
+}
+
+.years {
+  justify-content: space-between;
+}
+
+.growth {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  width: 240px;
+  height: 40px;
+  overflow: visible;
+  pointer-events: none;
+}
+.growth path {
+  fill: none;
+  stroke: var(--c-mint);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 500ms ease;
+}
+.profit:hover .growth path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 800ms var(--ease-out);
+}
+
+/* ---------- tablet ---------- */
+@media (max-width: 1240px) and (min-width: 768px) {
+  .head {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .labelCol {
+    width: auto;
+  }
+  .statement {
+    font-size: clamp(36px, 4.2vw, 52px);
+    line-height: 1.23;
+  }
+  .cards {
+    flex-wrap: wrap;
+  }
+  .cardWrap,
+  .card {
+    flex: 1 1 calc(50% - 8px);
+  }
+}
+
+/* ---------- mobile (194:364) ---------- */
+@media (max-width: 767px) {
+  .about {
+    --tail: var(--c-grey-display);
+  }
+  .inner {
+    padding: 72px 16px;
+    gap: 32px;
+  }
+  .head {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .labelCol {
+    width: auto;
+  }
+  .statement {
+    font-size: 30px;
+    line-height: 1.15;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .card {
+    height: 190px;
+    padding: 16px;
+    border-radius: var(--r-card-sm);
+  }
+  .cardWrap {
+    grid-column: 1 / -1;
+    height: 300px;
+  }
+  .profit {
+    grid-column: 1 / -1;
+    height: 150px;
+  }
+  .mint {
+    border-color: transparent;
+  }
+  .stat {
+    flex: 1;
+    justify-content: space-between;
+  }
+  .profit .stat {
+    display: contents;
+  }
+  .profit {
+    justify-content: space-between;
+  }
+  .caption {
+    font-size: 10px;
+    line-height: 1.55;
+    white-space: nowrap;
+  }
+  .big,
+  .huge,
+  .mid {
+    font-family: var(--f-mono);
+    font-weight: 200;
+    font-size: 52px;
+    letter-spacing: -0.06em;
+  }
+  .note {
+    font-size: 11px;
+    line-height: 1.55;
+  }
+  .growth {
+    display: none;
+  }
+}
+
+/* service pages: the section below brings its own top padding (258:573 / 281:381) */
+.tight .inner {
+  padding-bottom: 0;
+}
+@media (max-width: 767px) {
+  .tight .inner {
+    padding-bottom: 14px;
+  }
+}

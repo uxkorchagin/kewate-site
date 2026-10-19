@@ -1,33 +1,139 @@
+/* ==========================================================================
+   Kewate — design tokens (Figma «Хороший вариант», 181:764 / 194:309)
+   ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* surfaces */
+  --c-page: #fafafa;
+  --c-card: #ffffff;
+  --c-card-2: #f4f4f5;
+  --c-line: #e4e4e7;
+  --c-line-2: #d4d4d8;
+
+  /* text */
+  --c-text: #18181b;
+  --c-text-2: #71717a;
+  --c-text-3: #a1a1aa;
+  --c-text-4: #52525b;
+
+  /* dark */
+  --c-ink: #09090b;
+  --c-ink-card: #18181b;
+  --c-ink-card-2: #1c1c1f;
+  --c-ink-panel: #0e0e10;
+  --c-ink-line: #27272a;
+  --c-ink-text: #d4d4d8;
+
+  /* large grey display text on light backgrounds (≥3:1 for AA large text) */
+  --c-grey-display: #8e8e96;
+
+  /* accent */
+  --c-mint: #6aeec7;
+  --c-mint-deep: #03a475;
+  --c-mint-text: #0f7a58; /* mint text on light surfaces (service pages) — AA on #f4f4f5 */
+  --c-online: #21a037;
+  --c-night: #facc15;
+
+  /* type */
+  --f-sans: var(--font-geist), "Geist", system-ui, sans-serif;
+  --f-mono: var(--font-suse), var(--font-suse-ext), var(--font-mono-cyr), var(--font-geist), ui-monospace, monospace;
+
+  /* radii */
+  --r-btn: 12px;
+  --r-chip: 10px;
+  --r-tag: 8px;
+  --r-card: 28px;
+  --r-card-sm: 24px;
+  --r-section: 40px;
+
+  /* layout */
+  --page-max: 1440px;
+  --gutter: 32px;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* expo.out */
+  --ease-io: cubic-bezier(0.45, 0, 0.55, 1); /* power2.inOut */
+  --t-hover: 220ms;
+  --t-state: 400ms;
+
+  --header-h: 72px;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (max-width: 767px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --gutter: 16px;
+    --r-card: 24px;
+    --header-h: 60px;
   }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+/* AA contrast on dark surfaces: the zinc-500 secondary text (#71717a) reads 4.1:1 on #09090b,
+   so dark sections get a slightly lighter step; white cards inside them opt back in. */
+[data-theme="dark"] {
+  --c-text-2: #85858d;
+  --c-text-4: #64646d;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--c-ink);
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--c-page);
+  color: var(--c-text);
+  font-family: var(--f-sans);
+  font-size: 16px;
+  line-height: 1.4;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+blockquote {
   margin: 0;
+  padding: 0;
+}
+ul,
+ol {
+  list-style: none;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 400;
 }
 
 a {
@@ -35,8 +141,259 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+button,
+input {
+  font: inherit;
+  color: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+button {
+  cursor: pointer;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-mint);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--c-mint);
+  color: var(--c-ink);
+}
+
+/* the «Демо бесплатно» banner (sites service page) reserves its height before JS runs */
+html.has-banner {
+  --banner-offset: 44px;
+}
+@media (max-width: 767px) {
+  html.has-banner {
+    --banner-offset: 96px;
+  }
+}
+
+/* drag surfaces (carousel, marquee, tag cloud, timeline playhead) */
+[data-drag] {
+  cursor: grab;
+}
+[data-drag]:active,
+[data-drag][data-dragging] {
+  cursor: grabbing;
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+.mono {
+  font-family: var(--f-mono);
+}
+.caps {
+  text-transform: uppercase;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  z-index: 1000;
+  padding: 12px 16px;
+  border-radius: var(--r-btn);
+  background: var(--c-mint);
+  color: var(--c-ink);
+  font-family: var(--f-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  transform: translateY(-200%);
+}
+.skip-link:focus-visible {
+  transform: none;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* section label «• О студии» */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 1.5em; /* keeps its line while the label types itself */
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--c-text-2);
+}
+.eyebrow::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-mint);
+  flex: none;
+}
+@media (max-width: 767px) {
+  .eyebrow {
+    font-size: 11px;
+    line-height: 1.55;
+  }
+}
+
+/* responsive visibility */
+@media (max-width: 767px) {
+  .only-desktop {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) {
+  .only-mobile {
+    display: none !important;
+  }
+}
+
+/* SplitText mask helpers */
+.split-line-mask {
+  overflow: clip;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+/* pre-hydration reveal state — avoids flash before GSAP takes over */
+html.js [data-reveal] {
+  opacity: 0;
+}
+html.js.reduced [data-reveal] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Shared micro-interactions
+   ========================================================================== */
+
+/* arrow swap: current arrow flies out ↗, spare flies in from ↙ (220ms) */
+.swap-arrow {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  overflow: hidden;
+}
+.swap-arrow > svg {
+  position: absolute;
+  inset: 0;
+  transition: transform 220ms var(--ease-out);
+}
+.swap-arrow__b {
+  transform: translate(-115%, 115%);
+}
+.swap-host:hover .swap-arrow__a,
+.swap-host:focus-visible .swap-arrow__a {
+  transform: translate(115%, -115%);
+}
+.swap-host:hover .swap-arrow__b,
+.swap-host:focus-visible .swap-arrow__b {
+  transform: none;
+  transition-delay: 60ms;
+}
+
+/* text roll: duplicate word rises from below, letters staggered 15ms */
+.roll {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  vertical-align: top;
+}
+.roll__row {
+  display: inline-flex;
+  white-space: pre;
+}
+.roll__row--b {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.roll__ch {
+  display: inline-block;
+  transition: transform 350ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 15ms);
+}
+.roll__row--b .roll__ch {
+  transform: translateY(100%);
+}
+.roll-host:hover .roll__row--a .roll__ch,
+.roll-host:focus-visible .roll__row--a .roll__ch {
+  transform: translateY(-100%);
+}
+.roll-host:hover .roll__row--b .roll__ch,
+.roll-host:focus-visible .roll__row--b .roll__ch {
+  transform: none;
+}
+
+/* growing underline */
+.underline {
+  position: relative;
+}
+.underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 260ms var(--ease-out);
+}
+.underline:hover::after,
+.underline:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (hover: none) {
+  .swap-host:hover .swap-arrow__a {
+    transform: none;
+  }
+  .swap-host:hover .swap-arrow__b {
+    transform: translate(-115%, 115%);
   }
 }
